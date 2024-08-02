@@ -579,14 +579,14 @@ class TransTabLinearClassifier(nn.Module):
         if num_class <= 2:
             self.fc = nn.Linear(hidden_dim, 1)
         else:
-            self.fc = nn.Linear(hidden_dim, num_class)
+            self.fc = nn.Linear(hidden_dim, 1) #変更
         self.norm = nn.LayerNorm(hidden_dim)
 
     def forward(self, x) -> Tensor:
         x = x[:,0,:] # take the cls token embedding
         x = self.norm(x)
-        logits = self.fc(x)
-        return logits
+        output = self.fc(x)
+        return output
 
 class TransTabProjectionHead(nn.Module):
     def __init__(self,
