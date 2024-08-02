@@ -53,7 +53,7 @@ def predict(clf,
         if loss is not None:
             loss_list.append(loss.item())
         if logits.shape[-1] == 1: # binary classification
-            pred_list.append(logits.sigmoid().detach().cpu().numpy())
+            pred_list.append(logits.detach().cpu().numpy()) #変更
         else: # multi-class classification
             pred_list.append(torch.softmax(logits,-1).detach().cpu().numpy())
     pred_all = np.concatenate(pred_list, 0)
